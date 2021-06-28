@@ -38,4 +38,5 @@ public abstract class ByteBlob {
 
     public abstract List<String> serialize();
     public abstract void deserialize(List<String> lines);
+
 }

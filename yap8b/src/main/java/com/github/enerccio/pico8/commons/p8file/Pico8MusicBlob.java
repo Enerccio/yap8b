@@ -38,7 +38,7 @@ public class Pico8MusicBlob extends ByteBlob {
                 String line = lines.get(j);
                 int ix = 0;
                 for (int i = 0; i < width; i++) {
-                    for (int x = 0; x < 1; x++) {
+                    for (int x = 0; x < 2; x++) {
                         char c = line.charAt(ix++);
 
                         switch (c) {

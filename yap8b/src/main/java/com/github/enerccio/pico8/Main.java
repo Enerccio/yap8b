@@ -1,4 +1,4 @@
-package com.github.enerccio.pico8.builder;
+package com.github.enerccio.pico8;
 
 import com.github.enerccio.pico8.modules.Module;
 import com.github.enerccio.pico8.modules.init.BuildModule;

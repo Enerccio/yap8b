@@ -34,7 +34,7 @@ public class Pico8DoubleByteBlob extends ByteBlob {
             if (j < lines.size()) {
                 String line = lines.get(j);
                 for (int i = 0; i < width; i++) {
-                    for (int x = 0; x < 1; x++) {
+                    for (int x = 0; x < 2; x++) {
                         char c = line.charAt(i * 2 + x);
 
                         switch (c) {

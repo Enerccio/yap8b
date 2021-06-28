@@ -7,8 +7,6 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 
 public abstract class BaseModule implements Module {
@@ -30,7 +28,7 @@ public abstract class BaseModule implements Module {
     public final boolean run(Options options, CommandLine commandLine) throws Exception {
         if (commandLine.hasOption('h')) {
             HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("yapb8b " + getCommand(), options);
+            formatter.printHelp("yap8b " + getCommand(), options);
             return false;
         }
         return doRun(commandLine);
@@ -43,8 +41,7 @@ public abstract class BaseModule implements Module {
         if (env.containsKey(EnviromentConfig.PROJECT_FOLDER)) {
             return new File(env.get(EnviromentConfig.PROJECT_FOLDER));
         }
-        Path currentRelativePath = Paths.get("");
-        return currentRelativePath.toFile();
+        return new File(System.getProperty("user.dir")).getAbsoluteFile();
     }
 
 }
