@@ -30,7 +30,8 @@ public abstract class ByteBlob {
     }
 
     public void set(int i, byte value) {
-        if (value < 0 || value > maxv) {
+        int test = value & 0xff;
+        if (test > maxv) {
             throw new IllegalArgumentException("value >= maxvalue");
         }
         blob[i] = value;

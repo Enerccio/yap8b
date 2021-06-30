@@ -20,6 +20,10 @@ public class Pico8File {
 
     public static final Map<DependencyType, Function<Pico8File, ByteBlob>> GETTERS;
 
+    public static void main(String[] args) throws Exception {
+        parse(new File("/src/pico/project/sirtet/sirtet-sfx.p8"));
+    }
+
     static {
         GETTERS = new HashMap<>();
         GETTERS.put(DependencyType.__gfx__, Pico8File::getSprites);
@@ -100,11 +104,11 @@ public class Pico8File {
     }
 
     private final List<String> lua = new ArrayList<>();
-    private final Pico8SingleByteBlob sprites = new Pico8SingleByteBlob(128, 128, 16);
-    private final Pico8DoubleByteBlob flags = new Pico8DoubleByteBlob(128, 2, 256);
-    private final Pico8SingleByteBlob label = new Pico8SingleByteBlob(128, 128, 16);
-    private final Pico8DoubleByteBlob map = new Pico8DoubleByteBlob(128, 32, 256);
-    private final Pico8DoubleByteBlob sound = new Pico8DoubleByteBlob(84, 64, 256);
+    private final Pico8SingleByteBlob sprites = new Pico8SingleByteBlob(128, 128, 15);
+    private final Pico8DoubleByteBlob flags = new Pico8DoubleByteBlob(128, 2, 255);
+    private final Pico8SingleByteBlob label = new Pico8SingleByteBlob(128, 128, 15);
+    private final Pico8DoubleByteBlob map = new Pico8DoubleByteBlob(128, 32, 255);
+    private final Pico8DoubleByteBlob sound = new Pico8DoubleByteBlob(84, 64, 255);
     private final Pico8MusicBlob music = new Pico8MusicBlob();
 
     public List<String> getLua() {

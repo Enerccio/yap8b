@@ -16,8 +16,9 @@ public class Pico8DoubleByteBlob extends ByteBlob {
             StringBuilder builder = new StringBuilder();
             for (int i=0; i<width; i++) {
                 byte value = get(i, j);
-                byte most = (byte) (value % 16);
-                byte least = (byte) (value / 16);
+                int unsigned = value & 0xff;
+                byte most = (byte) (unsigned / 16);
+                byte least = (byte) (unsigned % 16);
                 builder.append(String.format("%x", most));
                 builder.append(String.format("%x", least));
             }
