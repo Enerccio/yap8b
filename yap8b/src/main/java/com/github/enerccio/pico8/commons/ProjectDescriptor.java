@@ -1,7 +1,9 @@
 package com.github.enerccio.pico8.commons;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class ProjectDescriptor {
 
@@ -14,6 +16,7 @@ public class ProjectDescriptor {
 
     private String main;
     private LinkedHashMap<DependencyType, String> dependencies = new LinkedHashMap<>();
+    private List<File> libraryPaths = new ArrayList<>();
 
     public ProjectDescriptor() {
         for (DependencyType type : DependencyType.values()) {
@@ -69,4 +72,11 @@ public class ProjectDescriptor {
         this.dependencies = dependencies;
     }
 
+    public List<File> getLibraryPaths() {
+        return libraryPaths;
+    }
+
+    public void setLibraryPaths(List<File> libraryPaths) {
+        this.libraryPaths = libraryPaths;
+    }
 }

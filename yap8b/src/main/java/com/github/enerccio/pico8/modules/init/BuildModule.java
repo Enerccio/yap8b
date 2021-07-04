@@ -11,6 +11,7 @@ import com.github.enerccio.pico8.modules.BaseModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,11 +37,16 @@ public class BuildModule extends BaseModule {
 
     @Override
     protected void fillOptions(Options options) {
-
+        Option option = new Option("l", "--lib-path", true, "Appends library path location.");
+        options.addOption(option);
     }
 
     @Override
     protected boolean doRun(CommandLine commandLine) throws Exception {
+        if (commandLine.hasOption('l')) {
+            PathUtils.appendLibraryPath(commandLine.getOptionValue('l'));
+        }
+
         File projectFolder = getProjectFolder();
         if (!projectFolder.exists() || !projectFolder.isDirectory()) {
             System.out.println("Missing project folder or project folder is a file: " + projectFolder);
@@ -54,6 +60,10 @@ public class BuildModule extends BaseModule {
         }
 
         ProjectDescriptor descriptor = gson.fromJson(FileUtils.readFileToString(descriptorFile, "UTF-8"), ProjectDescriptor.class);
+
+        if (descriptor.getLibraryPaths() != null)
+            for (File folder : descriptor.getLibraryPaths())
+                PathUtils.appendLibraryPath(folder);
 
         File build = new File(projectFolder, "build");
         FileUtils.deleteDirectory(build);
@@ -70,6 +80,8 @@ public class BuildModule extends BaseModule {
 
         if (StringUtils.isNotBlank(descriptor.getMain())) {
             File luaMain = PathUtils.resolveFile(projectFolder, descriptor.getMain());
+            assert luaMain != null;
+
             if (!luaMain.exists() || luaMain.isDirectory()) {
                 System.out.println("Failed to load lua input file " + luaMain);
                 return false;
@@ -137,6 +149,7 @@ public class BuildModule extends BaseModule {
             return true;
 
         File image = PathUtils.resolveFile(projectFolder, dependency);
+        assert image != null;
 
         if (dependency.endsWith(".png")) {
             try (FileInputStream fis = new FileInputStream(image)) {
@@ -168,6 +181,8 @@ public class BuildModule extends BaseModule {
             return true;
 
         File source = PathUtils.resolveFile(projectFolder, path);
+        assert source != null;
+
         if (!source.getAbsolutePath().endsWith(".p8")) {
             System.out.println("Warning, non p8 file selected as source: " + source);
         }
